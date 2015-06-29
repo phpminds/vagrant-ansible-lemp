@@ -1,0 +1,54 @@
+---
+- name: Add Nginx repo
+  yum: name=http://nginx.org/packages/centos/6/noarch/RPMS/nginx-release-centos-6-0.el6.ngx.noarch.rpm state=present
+
+- name: Install Nginx
+  sudo: yes
+  yum: pkg=nginx state=latest
+
+- name: Start Nginx manually
+  sudo: yes
+  shell: /etc/init.d/nginx start
+
+- name: Create user group for web server
+  group: name={{ web_server.server_user_group }} state=present
+
+- name: Create user for web server
+  user: name={{ web_server.server_user }} group={{ web_server.server_user_group }}
+
+- name: Create directory for sites-available
+  file: path=/etc/nginx/sites-available state=directory owner={{ web_server.server_user }} group={{ web_server.server_user_group }}
+
+- name: Create directory for sites-enabled
+  file: path=/etc/nginx/sites-enabled state=directory owner={{ web_server.server_user }} group={{ web_server.server_user_group }}
+
+- name: Create tmp directory for default site
+  file: path=/srv/tmp state=directory owner={{ web_server.server_user }} group={{ web_server.server_user_group }}
+
+- name: Create logs directory for default site
+  file: path=/srv/logs state=directory owner={{ web_server.server_user }} group={{ web_server.server_user_group }}
+
+  #Add templates
+- name: Change to custom Nginx conf
+  sudo: yes
+  template: src=nginx.conf.tpl dest=/etc/nginx/nginx.conf
+
+- name: Add default site to sites-available
+  sudo: yes
+  template: src=default.conf.tpl dest=/etc/nginx/sites-available/default_app.conf
+
+- name: Create symlink for default site to sites-enabled
+  file: src=/etc/nginx/sites-available/default_app.conf dest=/etc/nginx/sites-enabled/default_app.conf state=link
+
+- name: Enable PHP-FPM for default site - /etc/php5/fpm/pool.d/default_app.conf
+  sudo: yes
+  template: src=php-fpm.conf.tpl dest=/etc/php-fpm.d/default_app.conf
+
+- name: Restart Nginx manually
+  sudo: yes
+  shell: /etc/init.d/nginx restart
+
+- name: Start PHP-FPM manually
+  sudo: yes
+  shell: service php-fpm start
+
