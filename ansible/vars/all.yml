@@ -18,7 +18,7 @@ vagrant_local:
     }
 php:
     install: '1'
-    packages: ['php56w', 'php56w-common', 'php56w-cli', 'php56w-opcache', 'php56w-fpm', 'php56w-pdo', 'php56w-mcrypt', 'php56w-intl', 'php56w-devel']
+    packages: ['php56w', 'php56w-common', 'php56w-cli', 'php56w-opcache', 'php56w-fpm', 'php56w-mysql', 'php56w-pdo', 'php56w-mcrypt', 'php56w-intl', 'php56w-devel']
 
 mysql:
     install: '1'
