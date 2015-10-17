@@ -3,9 +3,9 @@
   sudo: yes
   yum: pkg=nginx state=latest
 
-- name: Start Nginx manually
-  sudo: yes
-  shell: systemctl start nginx
+#- name: Start Nginx manually
+#  sudo: yes
+#  shell: systemctl start nginx
 
 - name: Create user group for web server
   group: name={{ web_server.server_user_group }} state=present
@@ -19,12 +19,6 @@
 - name: Create directory for sites-enabled
   file: path=/etc/nginx/sites-enabled state=directory owner={{ web_server.server_user }} group={{ web_server.server_user_group }}
 
-#- name: Create tmp directory for default site
-#  file: path=/srv/tmp state=directory owner={{ web_server.server_user }} group={{ web_server.server_user_group }}
-#
-#- name: Create logs directory for default site
-#  file: path=/srv/logs state=directory owner={{ web_server.server_user }} group={{ web_server.server_user_group }}
-
   #Add templates
 - name: Change to custom Nginx conf
   sudo: yes
@@ -37,15 +31,18 @@
 - name: Create symlink for default site to sites-enabled
   file: src=/etc/nginx/sites-available/default_app.conf dest=/etc/nginx/sites-enabled/default_app.conf state=link
 
-#- name: Enable PHP-FPM for default site - /etc/php5/fpm/pool.d/default_app.conf
+- name: Create php-fpm.d directory
+  file: path=/etc/php-fpm.d/ state=directory owner={{ web_server.server_user }} group={{ web_server.server_user_group }}
+
+- name: Enable PHP-FPM for default site
+  sudo: yes
+  template: src=php-fpm.conf.tpl dest=/etc/php-fpm.d/default_app.conf
+
+#- name: Restart Nginx manually
 #  sudo: yes
-#  template: src=php-fpm.conf.tpl dest=/etc/php-fpm.d/default_app.conf
-
-- name: Restart Nginx manually
-  sudo: yes
-  shell: systemctl restart nginx
-
-- name: Start PHP-FPM manually
-  sudo: yes
-  shell: service php-fpm start
+#  shell: systemctl restart nginx
+#
+#- name: Start PHP-FPM manually
+#  sudo: yes
+#  shell: service php-fpm start
 

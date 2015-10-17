@@ -11,10 +11,10 @@ For the initial ansible package, I've used [Phansible](http://phansible.com/) - 
 
 This dev box it has been configured with the following:
 
-* It uses CentOS 6.5 minimal from [fillup/centos-6.5-x86_64-minimal](https://vagrantcloud.com/fillup/boxes/centos-6.5-x86_64-minimal)
+* It uses CentOS 7 (relativkreativ/centos-7-minimal)
 * Nginx 1.8
-* PHP 5.6 (congigured using PHP-FPM)
-* MySQL 5.6
+* PHP 7
+* MariaDB
 * RabbitMQ 3.5.3
 
 
@@ -23,8 +23,8 @@ This dev box it has been configured with the following:
 The current configuration:
 
 * Mounts current dir to /srv
-* IP: 192.168.32.23
-* Rabbit: 192.168.32.23:15672
+* IP: 192.168.32.52
+* Rabbit: 192.168.32.52:15672
 
 For custom configuration you can edit the `Vagrantfile` as well as `ansible/vars/all.yml`
 
