@@ -10,9 +10,9 @@ server {
 
 	index index.php;
 
-	access_log /srv/logs/access.log;
+	access_log /var/log/nginx/access.log;
 
-	error_log /srv/logs/error.log;
+	error_log /var/log/nginx/error.log;
 
 	server_name {{ web_server.server_name }};
 
