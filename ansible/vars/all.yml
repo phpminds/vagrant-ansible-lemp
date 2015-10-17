@@ -3,7 +3,7 @@ server:
     install: '1'
     timezone: UTC
     locale: en_US.UTF-8
-    packages: ['epel-release','curl', 'wget', 'nano'] #, 'zlib-devel', 'bzip2-devel', 'openssl-devel', 'xz-libs', 'libselinux-python', 'MySQL-python']
+    packages: ['epel-release','curl', 'wget', 'nano', 'net-tools'] #, 'zlib-devel', 'bzip2-devel', 'openssl-devel', 'xz-libs', 'libselinux-python', 'MySQL-python']
 
 vagrant_local:
     install: '1'
