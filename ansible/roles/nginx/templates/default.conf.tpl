@@ -6,13 +6,13 @@ server {
 
 	listen 80 default;
 
-	root /srv/{{ web_server.app_web_dir }};
+	root {{ web_server.app_web_dir }};
 
 	index index.php;
 
-	access_log /var/log/nginx/access.log;
+	access_log /var/log/nginx/{{web_server.server_name}}-access.log;
 
-	error_log /var/log/nginx/error.log;
+	error_log /var/log/nginx/{{web_server.server_name}}-error.log;
 
 	server_name {{ web_server.server_name }};
 

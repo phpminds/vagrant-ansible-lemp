@@ -31,6 +31,10 @@ Vagrant.configure("2") do |config|
     #############################################################
     # Ansible provisioning (you need to have ansible installed)
     #############################################################
+   
+
+    config.vm.provision "shell",
+    inline: "yum clean all"
 
     config.vm.provision "ansible" do |ansible|
         ansible.playbook = "ansible/playbook.yml"
