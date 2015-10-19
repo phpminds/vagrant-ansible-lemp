@@ -6,7 +6,7 @@ server {
 
 	listen 80 default;
 
-	root {{ web_server.app_web_dir }};
+	root /srv/{{ web_server.app_web_dir }};
 
 	index index.php;
 

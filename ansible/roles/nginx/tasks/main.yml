@@ -19,13 +19,9 @@
 - name: Create directory for sites-enabled
   file: path=/etc/nginx/sites-enabled state=directory owner={{ web_server.server_user }} group={{ web_server.server_user_group }}
 
-<<<<<<< HEAD
 - name: Create directory for sites-enabled
   file: path=/etc/php-fpm.d state=directory owner={{ web_server.server_user }} group={{ web_server.server_user_group }}
 
-
-=======
->>>>>>> upstream/php7
   #Add templates
 - name: Change to custom Nginx conf
   sudo: yes
@@ -38,14 +34,9 @@
 - name: Create symlink for default site to sites-enabled
   file: src=/etc/nginx/sites-available/default_app.conf dest=/etc/nginx/sites-enabled/default_app.conf state=link
 
-<<<<<<< HEAD
-- name: Enable PHP-FPM for default site - /etc/php5/fpm/pool.d/default_app.conf
-  sudo: yes
-  template: src=php-fpm.conf.tpl dest=/etc/php-fpm.d/default_app.conf
-=======
 - name: Create php-fpm.d directory
   file: path=/etc/php-fpm.d/ state=directory owner={{ web_server.server_user }} group={{ web_server.server_user_group }}
->>>>>>> upstream/php7
+
 
 - name: Enable PHP-FPM for default site
   sudo: yes

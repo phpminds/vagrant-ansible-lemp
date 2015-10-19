@@ -22,7 +22,7 @@ Vagrant.configure("2") do |config|
     end
 
     #config.vm.box = "fillup/centos-6.5-x86_64-minimal"
-    config.vm.box = 'relativkreativ/centos-7-minimal'
+    config.vm.box = 'chef/centos-7.1'
     
     config.vm.network :private_network, ip: "192.168.32.52", auto_correct: true
     config.vm.network :forwarded_port, host: 15672, guest: 15672
