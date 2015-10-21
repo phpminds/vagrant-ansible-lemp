@@ -37,16 +37,25 @@
 - name: Create php-fpm.d directory
   file: path=/etc/php-fpm.d/ state=directory owner={{ web_server.server_user }} group={{ web_server.server_user_group }}
 
-
-- name: Enable PHP-FPM for default site
+- name: configure php-fpm base
   sudo: yes
-  template: src=php-fpm.conf.tpl dest=/etc/php-fpm.d/default_app.conf
+  command: cp /usr/local/php7/etc/php-fpm.conf.default /etc/php-fpm.conf
 
-#- name: Restart Nginx manually
+- name: configure php-fpm www
+  sudo: yes
+  command: cp /usr/local/php7/etc/php-fpm.d/www.conf.default /usr/local/php7/etc/php-fpm.d/www.conf
+
+#- name: Enable PHP-FPM for default site
 #  sudo: yes
-#  shell: systemctl restart nginx
-#
-#- name: Start PHP-FPM manually
-#  sudo: yes
-#  shell: service php-fpm start
+#  template: src=php-fpm.conf.tpl dest=/etc/php-fpm.d/default_app.conf
+
+
+
+- name: Restart Nginx manually
+  sudo: yes
+  shell: systemctl restart nginx
+
+- name: Start PHP-FPM manually
+  sudo: yes
+  command: /usr/local/php7/sbin/php-fpm -y /etc/php-fpm.conf
 

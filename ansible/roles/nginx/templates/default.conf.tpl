@@ -1,5 +1,5 @@
 upstream backend {
-	server unix:/srv/tmp/php.sock;
+        server 127.0.0.1:9000;
 }
 
 server {
